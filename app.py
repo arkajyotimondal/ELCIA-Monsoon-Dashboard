@@ -38,6 +38,8 @@ if not st.session_state.get("playing_video", False):
 
 
 DB_PATH = Path(__file__).parent / "events.db"
+Path("tmp").mkdir(exist_ok=True)
+Path("thumbnails").mkdir(exist_ok=True)
 TABLE = "incidents"
 
 STATUS_OPTIONS = ["Open", "Acknowledged", "Resolved"]
