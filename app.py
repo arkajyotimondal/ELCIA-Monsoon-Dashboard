@@ -665,25 +665,25 @@ def severity_badge(label: str) -> str:
 
 def render_header(df: pd.DataFrame) -> None:
     latest = format_timestamp(df["timestamp"].max()) if not df.empty else "No events"
-    st.html(
-        f"""
-        <section class="command-header">
-            <div>
-                <div class="eyebrow">
-                    ELCIA civic operations
+    with st.container(border=True):
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.caption("🟢 SMART CITY COMMAND")
+            st.title("VarunDuth 🏙️")
+            st.write("Monsoon operations and road infrastructure incident dashboard. Review, prioritize, and dispatch repair crews for AI-detected hazards.")
+        with col2:
+            st.html(f'''
+            <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; padding-top: 0.5rem;">
+                <div style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.38rem 0.65rem; border-radius: 999px; color: #6ee7b7; background: rgba(16, 185, 129, 0.10); font-size: 0.74rem; font-weight: 700; border: 1px solid rgba(110, 231, 183, 0.40);">
+                    <div style="width: 7px; height: 7px; border-radius: 50%; background: #6ee7b7; box-shadow: 0 0 0 5px rgba(110, 231, 183, 0.11);"></div>
+                    SYSTEM ONLINE
                 </div>
-                <h1>VarunDuth</h1>
-            </div>
-            <div class="header-status">
-                <div class="system-pill"><span class="pulse-dot"></span> System online</div>
-                <div class="last-event">
-                    <span>Last detection</span>
-                    <strong>{esc(latest)}</strong>
+                <div style="padding: 0.72rem 0.82rem; border: 1px solid rgba(138, 172, 160, 0.22); border-radius: 8px; background: rgba(255, 255, 255, 0.035); margin-top: 0.5rem;">
+                    <div style="font-size: 0.72rem; color: #a8b9b1; text-transform: uppercase; font-weight: 700; margin-bottom: 0.2rem;">Last detection</div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #f4f7f4;">{esc(latest)}</div>
                 </div>
             </div>
-        </section>
-        """
-    )
+            ''')
 
 
 # Removed mission panel
