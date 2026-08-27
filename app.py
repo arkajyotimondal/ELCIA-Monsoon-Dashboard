@@ -666,21 +666,24 @@ def severity_badge(label: str) -> str:
 def render_header(df: pd.DataFrame) -> None:
     latest = format_timestamp(df["timestamp"].max()) if not df.empty else "No events"
     with st.container(border=True):
-        col1, col2 = st.columns([3, 1])
+        col1, col2 = st.columns([1, 1])
         with col1:
-            st.caption("🟢 SMART CITY COMMAND")
-            st.title("VarunDuth 🏙️")
-            st.write("Monsoon operations and road infrastructure incident dashboard. Review, prioritize, and dispatch repair crews for AI-detected hazards.")
+            st.html("""
+            <div style="padding: 0.5rem 0;">
+                <h1 style="margin:0; padding:0; font-size: 2rem; font-weight: 600; line-height: 1;">VarunDuth</h1>
+                <p style="margin:0; padding:0; color: #a8b9b1; font-size: 0.9rem; margin-top: 0.3rem;">Real-time infrastructure intelligence</p>
+            </div>
+            """)
         with col2:
             st.html(f'''
-            <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; padding-top: 0.5rem;">
-                <div style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.38rem 0.65rem; border-radius: 999px; color: #6ee7b7; background: rgba(16, 185, 129, 0.10); font-size: 0.74rem; font-weight: 700; border: 1px solid rgba(110, 231, 183, 0.40);">
-                    <div style="width: 7px; height: 7px; border-radius: 50%; background: #6ee7b7; box-shadow: 0 0 0 5px rgba(110, 231, 183, 0.11);"></div>
-                    SYSTEM ONLINE
+            <div style="display: flex; align-items: center; justify-content: flex-end; gap: 1rem; height: 100%; padding: 0.5rem 0;">
+                <div style="font-size: 0.8rem; color: #a8b9b1; text-align: right;">
+                    <div style="text-transform: uppercase; font-size: 0.65rem; font-weight: 700; margin-bottom: 0.1rem;">Last detection</div>
+                    <div style="font-family: monospace; color: #f4f7f4; font-size: 0.9rem;">{esc(latest)}</div>
                 </div>
-                <div style="padding: 0.72rem 0.82rem; border: 1px solid rgba(138, 172, 160, 0.22); border-radius: 8px; background: rgba(255, 255, 255, 0.035); margin-top: 0.5rem;">
-                    <div style="font-size: 0.72rem; color: #a8b9b1; text-transform: uppercase; font-weight: 700; margin-bottom: 0.2rem;">Last detection</div>
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: #f4f7f4;">{esc(latest)}</div>
+                <div style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 0.6rem; border-radius: 999px; color: #6ee7b7; background: rgba(16, 185, 129, 0.10); font-size: 0.7rem; font-weight: 700; border: 1px solid rgba(110, 231, 183, 0.40);">
+                    <div style="width: 6px; height: 6px; border-radius: 50%; background: #6ee7b7; box-shadow: 0 0 0 4px rgba(110, 231, 183, 0.11);"></div>
+                    SYSTEM ONLINE
                 </div>
             </div>
             ''')
