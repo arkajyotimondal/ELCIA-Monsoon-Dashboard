@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ELCIA Monsoon Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface": "#ffddbb",
+                        "on-primary-fixed": "#002022",
+                        "on-tertiary-fixed-variant": "#930010",
+                        "secondary": "#c1c6da",
+                        "on-background": "#ffddbb",
+                        "surface-tint": "#00dbe7",
+                        "inverse-on-surface": "#482900",
+                        "tertiary": "#fff5f4",
+                        "on-primary": "#00363a",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004f54",
+                        "on-error-container": "#ffdad6",
+                        "primary": "#e1fdff",
+                        "on-error": "#690005",
+                        "surface-dim": "#201000",
+                        "surface-container-lowest": "#190b00",
+                        "on-surface-variant": "#b9cacb",
+                        "surface-variant": "#4e2d00",
+                        "surface-bright": "#543100",
+                        "background": "#050A18", /* Overridden per prompt */
+                        "on-tertiary": "#680008",
+                        "surface-container-highest": "#4e2d00",
+                        "surface-container-high": "#3f2400",
+                        "primary-fixed": "#74f5ff",
+                        "on-tertiary-fixed": "#410003",
+                        "on-primary-container": "#006a71",
+                        "surface-container": "#311a00",
+                        "tertiary-fixed": "#ffdad6",
+                        "inverse-primary": "#00696f",
+                        "on-secondary-fixed": "#161b2a",
+                        "surface": "#201000",
+                        "tertiary-fixed-dim": "#ffb3ac",
+                        "primary-container": "#00f2ff",
+                        "on-secondary-container": "#afb4c8",
+                        "inverse-surface": "#ffddbb",
+                        "secondary-fixed": "#dde2f6",
+                        "outline-variant": "#3a494b",
+                        "on-secondary-fixed-variant": "#414657",
+                        "on-secondary": "#2b3040",
+                        "secondary-fixed-dim": "#c1c6da",
+                        "primary-fixed-dim": "#00F2FF", /* Teal Accent overridden */
+                        "tertiary-container": "#ffd0cb",
+                        "error": "#ffb4ab",
+                        "outline": "#849495",
+                        "surface-container-low": "#2b1700",
+                        "secondary-container": "#414657",
+                        "on-tertiary-container": "#c20018"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "container-padding": "20px",
+                        "unit": "4px",
+                        "margin": "32px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #050A18;
+            color: #b9cacb;
+        }
+        
+        /* Grid Overlay */
+        .data-grid {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-modal {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(0, 242, 255, 0.15);
+            box-shadow: 0 0 8px rgba(0, 242, 255, 0.2);
+        }
+        
+        /* Glows */
+        .glow-teal { box-shadow: 0 0 15px rgba(0, 242, 255, 0.4); }
+        .glow-red { box-shadow: 0 0 15px rgba(255, 50, 50, 0.4); }
+        .text-glow-teal { text-shadow: 0 0 8px rgba(0, 242, 255, 0.6); }
+        
+        /* Pulse Animation */
+        @keyframes pulse-critical {
+            0% { opacity: 0.8; box-shadow: 0 0 5px rgba(255, 50, 50, 0.5); }
+            50% { opacity: 1; box-shadow: 0 0 20px rgba(255, 50, 50, 0.8); }
+            100% { opacity: 0.8; box-shadow: 0 0 5px rgba(255, 50, 50, 0.5); }
+        }
+        .animate-critical { animation: pulse-critical 2s infinite; }
+        
+        /* Scanlines for Video Feed */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+        }
+
+        /* Material Symbols Weight configuration class */
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 300,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .material-symbols-fill {
+           font-variation-settings:
+          'FILL' 1,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row overflow-hidden font-body-md relative data-grid">
+<!-- JSON: SideNavBar -->
+<nav class="hidden md:flex bg-surface-container dark:bg-surface-container backdrop-blur-[20px] font-label-caps text-label-caps h-screen w-[80px] lg:w-[280px] sticky left-0 top-0 border-r border-white/10 shadow-2xl flex-col py-margin z-50">
+<div class="px-gutter mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-primary-fixed-dim glow-teal">
+<img alt="System Operator User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCr_42b3GOG9S_5leNA_EPLq3s8C-iouXe-4PEpt0vcRej6694naNoZk0IS65N6-qYy4DqwwW4w--fi0aYL1VJkXdPQ-lHi6C874cvgDCwhKwbVijeREwOpKqfwCJg2X3AEZHMKQ8B-kVER4__9VLNQuAVRAOPPsJnsJrFcgb9JSn0Iohk0iu0b_t6KcRQ6JIuptecYxtbKvGVnOx0oatGNd17wQ4PoE2zjB7walQdhwxGs68yKG0QgTOKt3xPb_wwbADkCfnwrxYI"/>
+</div>
+<div class="hidden lg:block">
+<div class="font-headline-md text-headline-md text-primary-fixed-dim">System Operator</div>
+<div class="text-on-surface-variant opacity-60 text-[10px]">Station 04-B</div>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-grow px-unit">
+<li>
+<a class="flex items-center gap-4 px-6 py-4 rounded-lg bg-primary-container/20 text-primary-fixed-dim border-l-2 border-primary-fixed-dim group hover:bg-white/5 hover:text-primary-fixed-dim transition-colors relative" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 duration-200">dashboard</span>
+<span class="hidden lg:block group-hover:translate-x-1 duration-200">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 rounded-lg text-on-surface-variant opacity-60 group hover:bg-white/5 hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 duration-200">videocam</span>
+<span class="hidden lg:block group-hover:translate-x-1 duration-200">Live Monitoring</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 rounded-lg text-on-surface-variant opacity-60 group hover:bg-white/5 hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 duration-200">analytics</span>
+<span class="hidden lg:block group-hover:translate-x-1 duration-200">Analytics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 px-6 py-4 rounded-lg text-on-surface-variant opacity-60 group hover:bg-white/5 hover:text-primary-fixed-dim transition-colors" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 duration-200">report_problem</span>
+<span class="hidden lg:block group-hover:translate-x-1 duration-200">Incident Reports</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-y-auto">
+<!-- JSON: TopNavBar (Mobile Only) -->
+<header class="md:hidden bg-white/12 dark:bg-white/12 backdrop-blur-[24px] font-headline-md text-headline-md w-full top-0 sticky border-b border-white/15 shadow-[0_4px_30px_rgba(0,0,0,0.1)] flex justify-between items-center px-gutter py-4 z-50">
+<div class="font-display-lg text-display-lg text-primary-fixed-dim drop-shadow-[0_0_8px_rgba(0,219,231,0.6)] text-xl tracking-tighter">ELCIA MONSOON</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:bg-white/5 transition-all duration-300 active:scale-95 p-2 rounded-full"><span class="material-symbols-outlined">sensors</span></button>
+<button class="text-on-surface-variant hover:bg-white/5 transition-all duration-300 active:scale-95 p-2 rounded-full"><span class="material-symbols-outlined">notifications_active</span></button>
+<button class="text-on-surface-variant hover:bg-white/5 transition-all duration-300 active:scale-95 p-2 rounded-full"><span class="material-symbols-outlined">settings</span></button>
+</div>
+</header>
+<!-- Hero Banner -->
+<div class="relative w-full h-[200px] shrink-0 border-b border-white/10 flex flex-col justify-center px-gutter z-10" data-alt="A highly detailed cinematic shot of a futuristic cyberpunk city grid seen from above during a heavy rainstorm. The scene is bathed in a deep navy and electric teal glow, highlighting sleek minimalist command center data lines overlaid on the dark, wet streets. The mood is high-stakes, technical, and urgent, emphasizing smart city hazard monitoring. High contrast, atmospheric, 8k resolution." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC-yywbUBj-DMfcyojK8UxhxkdZSBqS8CwfK76r9n-rujvn9BdefaIsMmtwdGYbjisP1UaXsAq4442UFWQTA4TdhjYPAF9EPt1BXEpW3LbOMGDrJjw3UztXSTOLIL8nECr6rBIjNmSNA7qhz-PrQKj4BVUvuhX9pd7itHgaWmG2Oc_GFUOXDfKbC9LtmcQ0JeyNFMfw4oSNOaI_5lxnfQ28aOBYnhqwW7s_R9zKTXXaBjbMySNNWruRjg8XQfXrf9R5Qg10FnJ8yWU')">
+<div class="absolute inset-0 bg-background/80 backdrop-blur-[2px]"></div>
+<div class="relative z-10">
+<h1 class="font-display-lg text-display-lg text-white text-glow-teal tracking-tight mb-2">MONSOON INTELLIGENCE COMMAND</h1>
+<p class="font-label-caps text-label-caps text-primary-fixed-dim uppercase tracking-widest">Smart City Hazard Monitoring System</p>
+</div>
+</div>
+<!-- Dashboard Canvas -->
+<div class="p-gutter flex flex-col gap-gutter max-w-[1600px] w-full mx-auto pb-32">
+<!-- KPI Metrics -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- KPI 1 -->
+<div class="glass-panel p-6 rounded-xl relative overflow-hidden group hover:border-primary-fixed-dim transition-colors duration-300">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">Active Potholes</div>
+<div class="font-display-lg text-display-lg text-white">42</div>
+<div class="absolute top-6 right-6 w-12 h-12 rounded-full bg-primary-fixed-dim/20 flex items-center justify-center glow-teal">
+<span class="material-symbols-outlined text-primary-fixed-dim">warning</span>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="glass-panel p-6 rounded-xl relative overflow-hidden group border-red-500/30">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">Critical Waterlogging</div>
+<div class="font-display-lg text-display-lg text-white">12</div>
+<div class="absolute top-6 right-6 w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center animate-critical">
+<span class="material-symbols-outlined text-red-500">water_drop</span>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="glass-panel p-6 rounded-xl relative overflow-hidden group hover:border-orange-500/50 transition-colors duration-300">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">Drain Overflows</div>
+<div class="font-display-lg text-display-lg text-white">08</div>
+<div class="absolute top-6 right-6 w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-orange-400">waves</span>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="glass-panel p-6 rounded-xl relative overflow-hidden group hover:border-primary-fixed-dim transition-colors duration-300">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">Damaged Footpaths</div>
+<div class="font-display-lg text-display-lg text-white">15</div>
+<div class="absolute top-6 right-6 w-12 h-12 rounded-full bg-primary-fixed-dim/20 flex items-center justify-center glow-teal">
+<span class="material-symbols-outlined text-primary-fixed-dim">directions_walk</span>
+</div>
+</div>
+</div>
+<!-- Central Panels Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter h-auto lg:h-[400px]">
+<!-- Hazard Distribution (Left) -->
+<div class="lg:col-span-3 glass-panel rounded-xl p-6 flex flex-col">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-6 border-b border-white/10 pb-2">Hazard Distribution</h2>
+<div class="flex-1 flex items-center justify-center relative">
+<!-- Abstract CSS Radial Chart representation -->
+<div class="w-48 h-48 rounded-full border-4 border-white/5 relative flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-4 border-primary-fixed-dim border-t-transparent border-r-transparent rotate-45 glow-teal"></div>
+<div class="absolute inset-0 rounded-full border-4 border-red-500 border-b-transparent border-l-transparent -rotate-12"></div>
+<div class="absolute inset-0 rounded-full border-4 border-orange-400 border-t-transparent border-b-transparent rotate-90"></div>
+<div class="font-display-lg text-display-lg text-white text-2xl">77</div>
+</div>
+</div>
+</div>
+<!-- Live Video Feed (Middle) -->
+<div class="lg:col-span-6 glass-panel rounded-xl overflow-hidden relative border-primary-fixed-dim/30 glow-teal flex flex-col">
+<div class="absolute top-4 left-4 z-20 flex items-center gap-2 bg-black/60 backdrop-blur-md px-3 py-1 rounded-sm border border-white/10">
+<div class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></div>
+<span class="font-data-mono text-[10px] text-primary-fixed-dim tracking-widest">STATION 04-B: MAIN JUNCTION</span>
+</div>
+<div class="absolute top-4 right-4 z-20 font-data-mono text-[10px] text-white/50 bg-black/60 px-2 py-1 rounded-sm">REC // 00:14:32</div>
+<div class="relative flex-1 bg-black w-full h-full" data-alt="A gritty, high-contrast night vision style surveillance camera view of a major city junction during a heavy storm. Deep shadows, wet reflective roads glowing with minimal neon light. A subtle heads-up display overlay with targeting reticles marks a flooded underpass. Moody, dark aesthetic, intense, command center operational vibe." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHf2v81YmIjS17BaHQk8ZBg9Lgr4Hq0VojH3qQQt4b4FDueiJSdIxLWZ56BseUU1CPKMJLRUpo4hq-M4U3u6eojWYlRKZ1heZAxIGoTwkq4_P4XYYfiKwJodrGUenI2BDXQK0OlbgXq8Gzr5KFLjn_WKKQDwJNJaxecRgJfcQ8Kw7-vikXptcUF0HB2LZezpFpQnFp2QU9yTOPB__GpvOnteMuQLnKxnL14DmAa7dt1Yp084OEl1ulNhq83KaUBZh7nncmVzdEUfM')">
+<div class="absolute inset-0 scanlines pointer-events-none opacity-30"></div>
+<div class="absolute inset-0 bg-primary-fixed-dim/5 mix-blend-overlay"></div>
+<!-- Crosshairs -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 border border-white/20 rounded-full flex items-center justify-center opacity-50">
+<div class="w-1 h-1 bg-primary-fixed-dim rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Critical Alerts (Right) -->
+<div class="lg:col-span-3 glass-panel rounded-xl p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6 border-b border-white/10 pb-2">
+<h2 class="font-label-caps text-label-caps text-red-500">Critical Alerts</h2>
+<span class="material-symbols-outlined text-red-500 text-sm">warning</span>
+</div>
+<div class="flex flex-col gap-4 overflow-y-auto pr-2 custom-scrollbar">
+<!-- Alert Item -->
+<div class="bg-red-500/10 border border-red-500/30 rounded-lg p-4 animate-critical">
+<div class="flex items-start gap-3">
+<span class="material-symbols-fill text-red-500 mt-1">flood</span>
+<div>
+<div class="font-label-caps text-[10px] text-red-300 mb-1">08:42 AM - SECTOR 7</div>
+<div class="font-headline-md text-sm text-white font-bold leading-tight">FLASH FLOOD DETECTED</div>
+</div>
+</div>
+</div>
+<!-- Alert Item -->
+<div class="bg-orange-500/10 border border-orange-500/30 rounded-lg p-4 hover:bg-orange-500/20 transition-colors">
+<div class="flex items-start gap-3">
+<span class="material-symbols-fill text-orange-400 mt-1">electric_meter</span>
+<div>
+<div class="font-label-caps text-[10px] text-orange-300 mb-1">08:15 AM - SECTOR 2</div>
+<div class="font-headline-md text-sm text-white font-bold leading-tight">POWER GRID ANOMALY</div>
+</div>
+</div>
+</div>
+<!-- Alert Item -->
+<div class="bg-orange-500/10 border border-orange-500/30 rounded-lg p-4 hover:bg-orange-500/20 transition-colors">
+<div class="flex items-start gap-3">
+<span class="material-symbols-fill text-orange-400 mt-1">car_crash</span>
+<div>
+<div class="font-label-caps text-[10px] text-orange-300 mb-1">07:50 AM - HIGHWAY 4</div>
+<div class="font-headline-md text-sm text-white font-bold leading-tight">TRAFFIC GRIDLOCK</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Panel: Incident Log -->
+<div class="glass-panel rounded-xl overflow-hidden mt-4">
+<div class="p-6 border-b border-white/10 flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">Active Incident Log</h2>
+<button class="flex items-center gap-2 text-xs font-label-caps text-primary-fixed-dim hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm">download</span> EXPORT
+                    </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-white/5 font-label-caps text-[10px] text-on-surface-variant uppercase tracking-wider border-b border-white/10">
+<th class="p-4">Time</th>
+<th class="p-4">Hazard Type</th>
+<th class="p-4">Location</th>
+<th class="p-4">Severity</th>
+<th class="p-4">Status</th>
+<th class="p-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-sm">
+<!-- Row 1 -->
+<tr class="border-b border-white/5 hover:bg-white/5 hover:border-primary-fixed-dim transition-all group">
+<td class="p-4 text-white/70">08:42:15</td>
+<td class="p-4 text-white">Flash Flood</td>
+<td class="p-4 text-white/70">Sector 7, Main Arterial</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2 py-1 rounded-sm bg-red-500/15 text-red-500 text-[10px] uppercase font-bold animate-pulse">Critical</span>
+</td>
+<td class="p-4">
+<span class="text-orange-400 text-xs">Dispatching</span>
+</td>
+<td class="p-4 text-right">
+<select class="bg-transparent border-none text-primary-fixed-dim text-xs font-label-caps focus:ring-0 cursor-pointer text-right appearance-none group-hover:bg-black/20 rounded px-2 py-1">
+<option class="bg-surface text-white">Pending</option>
+<option class="bg-surface text-white" selected="">Dispatched</option>
+<option class="bg-surface text-white">Resolved</option>
+</select>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-white/5 hover:bg-white/5 hover:border-primary-fixed-dim transition-all group">
+<td class="p-4 text-white/70">08:12:04</td>
+<td class="p-4 text-white">Deep Pothole</td>
+<td class="p-4 text-white/70">Junction 4B</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2 py-1 rounded-sm bg-orange-500/15 text-orange-400 text-[10px] uppercase font-bold">Moderate</span>
+</td>
+<td class="p-4">
+<span class="text-white/50 text-xs">Logged</span>
+</td>
+<td class="p-4 text-right">
+<select class="bg-transparent border-none text-primary-fixed-dim text-xs font-label-caps focus:ring-0 cursor-pointer text-right appearance-none group-hover:bg-black/20 rounded px-2 py-1">
+<option class="bg-surface text-white" selected="">Pending</option>
+<option class="bg-surface text-white">Dispatched</option>
+<option class="bg-surface text-white">Resolved</option>
+</select>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-white/5 hover:border-primary-fixed-dim transition-all group border-b border-transparent">
+<td class="p-4 text-white/70">07:30:22</td>
+<td class="p-4 text-white">Fallen Tree</td>
+<td class="p-4 text-white/70">Avenue North</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2 py-1 rounded-sm bg-primary-fixed-dim/15 text-primary-fixed-dim text-[10px] uppercase font-bold">Low</span>
+</td>
+<td class="p-4">
+<span class="text-green-400 text-xs">Cleared</span>
+</td>
+<td class="p-4 text-right">
+<select class="bg-transparent border-none text-primary-fixed-dim text-xs font-label-caps focus:ring-0 cursor-pointer text-right appearance-none group-hover:bg-black/20 rounded px-2 py-1">
+<option class="bg-surface text-white">Pending</option>
+<option class="bg-surface text-white">Dispatched</option>
+<option class="bg-surface text-white" selected="">Resolved</option>
+</select>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<style>
+        /* Custom Scrollbar for inner panels */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 242, 255, 0.2);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 242, 255, 0.5);
+        }
+    </style>
+</body></html>

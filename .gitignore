@@ -1,0 +1,21 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Database
+events.db
+
+# Video and Image Data
+*.mp4
+*.avi
+*.mov
+*.mkv
+tmp/
+thumbnails/
+
+# YOLO Weights
+*.pt
+
+# OS specific
+.DS_Store
