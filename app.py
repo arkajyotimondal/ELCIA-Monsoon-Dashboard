@@ -1056,7 +1056,7 @@ with analytics_left:
                         alt.Tooltip("incidents:Q", title="Incidents"),
                     ],
                 )
-                .properties(height=230)
+                .properties(height=280)
                 .configure_view(strokeWidth=0)
             )
             st.altair_chart(hazard_chart, width="stretch")
@@ -1093,7 +1093,7 @@ with analytics_right:
                         alt.Tooltip("incidents:Q", title="Incidents"),
                     ],
                 )
-                .properties(height=230)
+                .properties(height=280)
                 .configure_view(strokeWidth=0)
             )
             st.altair_chart(status_chart, width="stretch")
