@@ -1,3 +1,67 @@
+# Adapted from the Streamlit financial dashboard theme template.
+# Dark civic operations palette for ELCIA monsoon monitoring.
+
 [theme]
-base="light"
-primaryColor="#38b778"
+base = "dark"
+primaryColor = "#38B778"
+backgroundColor = "#08110F"
+secondaryBackgroundColor = "#101E1B"
+codeBackgroundColor = "#13231F"
+textColor = "#F4F7F4"
+linkColor = "#6EE7B7"
+borderColor = "#29483F"
+codeTextColor = "#CFE7DC"
+showWidgetBorder = true
+showSidebarBorder = true
+baseRadius = "6px"
+buttonRadius = "6px"
+
+font = "'Inter':https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "'Inter':https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap"
+codeFont = "'JetBrains Mono':https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+baseFontSize = 14
+baseFontWeight = 400
+codeFontSize = "13px"
+headingFontSizes = ["28px", "22px", "18px", "16px", "14px", "12px"]
+headingFontWeights = [700, 600, 600, 600, 500, 500]
+linkUnderline = false
+
+greenColor = "#38B778"
+redColor = "#EF6A5B"
+yellowColor = "#F4B740"
+orangeColor = "#FB923C"
+blueColor = "#67E8F9"
+violetColor = "#A78BFA"
+grayColor = "#A8B9B1"
+
+chartCategoricalColors = [
+    "#38B778",
+    "#67E8F9",
+    "#F4B740",
+    "#EF6A5B",
+    "#A78BFA",
+    "#94A3B8",
+]
+
+chartSequentialColors = [
+    "#07100E",
+    "#0C1714",
+    "#13231F",
+    "#1C3A31",
+    "#24513F",
+    "#2D6B4E",
+    "#38B778",
+    "#6EE7B7",
+    "#BAF7DA",
+]
+
+dataframeBorderColor = "#29483F"
+dataframeHeaderBackgroundColor = "#13231F"
+
+[theme.sidebar]
+backgroundColor = "#0C1714"
+secondaryBackgroundColor = "#13231F"
+codeBackgroundColor = "#13231F"
+textColor = "#F4F7F4"
+borderColor = "#29483F"
+primaryColor = "#38B778"
