@@ -1005,7 +1005,7 @@ with main_left:
                 st.info(recommendation_for(priority), icon=":material/assignment:")
 
 with main_right:
-    with st.container(border=True, height=820):
+    with st.container(border=True, height=680):
         st.markdown(
             '<span class="section-kicker">Response queue</span>',
             unsafe_allow_html=True,
