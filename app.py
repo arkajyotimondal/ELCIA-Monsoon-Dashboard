@@ -1005,13 +1005,13 @@ with main_left:
                 st.info(recommendation_for(priority), icon=":material/assignment:")
 
 with main_right:
-    with st.container(border=True, height=506):
+    with st.container(border=True, height=820):
         st.markdown(
             '<span class="section-kicker">Response queue</span>',
             unsafe_allow_html=True,
         )
         st.caption("Open and acknowledged incidents ordered by the active queue mode.")
-        response_queue = queue_df[queue_df["status"] != "Resolved"].head(8)
+        response_queue = queue_df[queue_df["status"] != "Resolved"].head(15)
         if response_queue.empty:
             st.success("No active response items in the current filter.", icon=":material/check_circle:")
         else:
