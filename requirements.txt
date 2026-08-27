@@ -3,4 +3,4 @@ pandas>=2.0.0
 numpy>=1.24.0
 ultralytics>=8.0.0
 opencv-python-headless>=4.8.0
-streamlit-autorefresh>=1.0.3
+streamlit-autorefresh>=1.0.1
