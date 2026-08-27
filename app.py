@@ -672,7 +672,7 @@ def render_header(df: pd.DataFrame) -> None:
                 <div class="eyebrow">
                     ELCIA civic operations
                 </div>
-                <h1>Monsoon operations center</h1>
+                <h1>VarunDuth</h1>
             </div>
             <div class="header-status">
                 <div class="system-pill"><span class="pulse-dot"></span> System online</div>
