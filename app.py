@@ -598,7 +598,8 @@ def connect() -> sqlite3.Connection:
 @st.cache_data(ttl=15, show_spinner=False)
 def load_incidents() -> pd.DataFrame:
     if not DB_PATH.exists():
-        return pd.DataFrame()
+        with connect() as conn:
+            database_setup.create_table(conn)
 
     with connect() as conn:
         df = pd.read_sql_query(
