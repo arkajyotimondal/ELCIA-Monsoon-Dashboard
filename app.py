@@ -1,5 +1,5 @@
 """
-ELCIA Monsoon, Roads and Civic Infrastructure Intelligence Dashboard.
+VarunDuth Monsoon, Roads and Civic Infrastructure Intelligence Dashboard.
 
 The dashboard reads YOLOv8 detection incidents from events.db and turns them
 into an operator workspace for detection review, prioritization and closure.
@@ -25,7 +25,7 @@ except ImportError:
 import database_setup
 
 st.set_page_config(
-    page_title="ELCIA | Monsoon operations",
+    page_title="VarunDuth",
     page_icon=":material/rainy:",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -74,29 +74,16 @@ RECOMMENDATIONS = {
 CSS = """
 <style>
 :root {
-    --bg: #08110f;
-    --panel: rgba(16, 30, 27, 0.86);
-    --panel-soft: rgba(20, 42, 37, 0.70);
-    --line: rgba(138, 172, 160, 0.22);
-    --line-strong: rgba(87, 178, 132, 0.44);
-    --text: #f4f7f4;
-    --muted: #a8b9b1;
+    --line: rgba(128, 128, 128, 0.2);
     --green: #38b778;
-    --mint: #6ee7b7;
-    --cyan: #67e8f9;
-    --amber: #f4b740;
-    --red: #ef6a5b;
+    --mint: #10b981;
+    --cyan: #0ea5e9;
+    --amber: #f59e0b;
+    --red: #ef4444;
 }
 
 .stApp {
-    background:
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(255,255,255,0.025) 1px, transparent 1px),
-        radial-gradient(circle at 18% 12%, rgba(56, 183, 120, 0.16), transparent 32%),
-        radial-gradient(circle at 78% 4%, rgba(103, 232, 249, 0.11), transparent 28%),
-        #08110f;
-    background-size: 42px 42px, 42px 42px, auto, auto, auto;
-    color: var(--text);
+    background-color: transparent;
 }
 
 header[data-testid="stHeader"] {
@@ -109,14 +96,9 @@ header[data-testid="stHeader"] {
     padding-bottom: 3rem;
 }
 
-[data-testid="stSidebar"] {
-    background: #0c1714;
-    border-right: 1px solid var(--line);
-}
-
 [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p,
 [data-testid="stSidebar"] label {
-    color: var(--muted);
+    opacity: 0.8;
 }
 
 h1, h2, h3, p {
@@ -133,31 +115,13 @@ h1, h2, h3, p {
     border-radius: 8px;
     background:
         linear-gradient(135deg, rgba(9, 20, 18, 0.92), rgba(13, 32, 27, 0.84)),
-        linear-gradient(90deg, rgba(56, 183, 120, 0.20), transparent 42%);
-    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.28);
-}
-
-.eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    color: var(--mint);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.command-header h1 {
-    margin: 0.35rem 0 0.35rem;
-    font-size: clamp(1.65rem, 3vw, 2.7rem);
     line-height: 1.05;
-    color: var(--text);
 }
 
 .command-header p {
     margin: 0;
     max-width: 760px;
-    color: var(--muted);
+    opacity: 0.8;
     font-size: 0.98rem;
 }
 
@@ -174,7 +138,7 @@ h1, h2, h3, p {
     gap: 0.45rem;
     width: max-content;
     padding: 0.38rem 0.65rem;
-    border: 1px solid rgba(110, 231, 183, 0.40);
+    border: 1px solid var(--line);
     border-radius: 999px;
     color: var(--mint);
     background: rgba(16, 185, 129, 0.10);
@@ -196,7 +160,7 @@ h1, h2, h3, p {
     padding: 0.72rem 0.82rem;
     border: 1px solid var(--line);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.035);
+    background: rgba(128, 128, 128, 0.05);
     text-align: right;
 }
 
@@ -481,13 +445,12 @@ div[data-testid="stMetric"] [data-testid="stMetricLabel"] {
 
 .queue-card h4 {
     margin: 0 0 0.28rem;
-    color: var(--text);
     font-size: 0.94rem;
 }
 
 .queue-card p {
     margin: 0;
-    color: var(--muted);
+    opacity: 0.8;
     font-size: 0.8rem;
 }
 
@@ -665,25 +628,25 @@ def severity_badge(label: str) -> str:
 
 def render_header(df: pd.DataFrame) -> None:
     latest = format_timestamp(df["timestamp"].max()) if not df.empty else "No events"
-    st.html(
-        f"""
-        <section class="command-header">
-            <div>
-                <div class="eyebrow">
-                    ELCIA civic operations
+    with st.container(border=True):
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.caption("🟢 SMART CITY COMMAND")
+            st.title("VarunDuth 🏙️")
+            st.write("Monsoon operations and road infrastructure incident dashboard. Review, prioritize, and dispatch repair crews for AI-detected hazards.")
+        with col2:
+            st.html(f'''
+            <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; padding-top: 0.5rem;">
+                <div style="display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.38rem 0.65rem; border-radius: 999px; color: #10b981; background: rgba(16, 185, 129, 0.10); font-size: 0.74rem; font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.2);">
+                    <div style="width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 4px rgba(16,185,129,0.2);"></div>
+                    SYSTEM ONLINE
                 </div>
-                <h1>Monsoon operations center</h1>
-            </div>
-            <div class="header-status">
-                <div class="system-pill"><span class="pulse-dot"></span> System online</div>
-                <div class="last-event">
-                    <span>Last detection</span>
-                    <strong>{esc(latest)}</strong>
+                <div style="padding: 0.5rem 0.8rem; border: 1px solid rgba(128,128,128,0.2); border-radius: 8px; background: rgba(128,128,128,0.05); margin-top: 0.5rem;">
+                    <div style="font-size: 0.72rem; opacity: 0.7; text-transform: uppercase; font-weight: 700; margin-bottom: 0.2rem;">Last detection</div>
+                    <div style="font-family: monospace; font-size: 0.9rem;">{esc(latest)}</div>
                 </div>
             </div>
-        </section>
-        """
-    )
+            ''')
 
 
 # Removed mission panel
@@ -788,52 +751,55 @@ zone_options = sorted(df_all["zone"].unique().tolist())
 class_options = sorted(df_all["hazard_class"].unique().tolist())
 
 with st.sidebar:
-    st.caption("Detection stack")
-    st.title("Command filters")
-
-    if st.button("Reset filters", icon=":material/filter_alt_off:", width="stretch"):
+    st.title("VarunDuth Controls")
+    
+    with st.expander("📍 Location & Hazard Types", expanded=True):
+        zone_filter = st.multiselect(
+            "Target Zones",
+            zone_options,
+            default=zone_options,
+            key="zone_filter",
+        )
+        class_filter = st.pills(
+            "Hazard Categories",
+            class_options,
+            default=class_options,
+            selection_mode="multi",
+            format_func=lambda item: CLASS_DISPLAY.get(str(item), str(item)),
+            key="class_filter",
+            width="stretch",
+        )
+        
+    with st.expander("⚠️ Triage & Status", expanded=True):
+        status_filter = st.pills(
+            "Lifecycle Status",
+            STATUS_OPTIONS,
+            default=STATUS_OPTIONS,
+            selection_mode="multi",
+            key="status_filter",
+            width="stretch",
+        )
+        severity_filter = st.slider(
+            "Severity threshold",
+            min_value=0.0,
+            max_value=1.0,
+            value=(0.0, 1.0),
+            step=0.05,
+            key="severity_filter",
+        )
+        sort_mode = st.selectbox(
+            "Queue order",
+            ["Severity first", "Newest first", "Confidence first"],
+            key="sort_mode",
+        )
+        
+    if st.button("Reset all filters", icon=":material/filter_alt_off:", width="stretch", type="secondary"):
         for key in ("zone_filter", "class_filter", "status_filter", "severity_filter", "sort_mode"):
             st.session_state.pop(key, None)
         st.rerun()
-
-    zone_filter = st.multiselect(
-        "Zones",
-        zone_options,
-        default=zone_options,
-        key="zone_filter",
-    )
-    class_filter = st.pills(
-        "Hazards",
-        class_options,
-        default=class_options,
-        selection_mode="multi",
-        format_func=lambda item: CLASS_DISPLAY.get(str(item), str(item)),
-        key="class_filter",
-        width="stretch",
-    )
-    status_filter = st.pills(
-        "Status",
-        STATUS_OPTIONS,
-        default=STATUS_OPTIONS,
-        selection_mode="multi",
-        key="status_filter",
-        width="stretch",
-    )
-    severity_filter = st.slider(
-        "Severity score",
-        min_value=0.0,
-        max_value=1.0,
-        value=(0.0, 1.0),
-        step=0.05,
-        key="severity_filter",
-    )
-    sort_mode = st.selectbox(
-        "Queue order",
-        ["Severity first", "Newest first", "Confidence first"],
-        key="sort_mode",
-    )
+        
     st.divider()
-    st.caption(f"SQLite source: `{DB_PATH.name}`")
+    st.caption(f"Connected database: `{DB_PATH.name}`")
 
 
 filtered = filtered_incidents(
