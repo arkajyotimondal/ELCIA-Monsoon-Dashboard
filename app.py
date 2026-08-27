@@ -1077,7 +1077,7 @@ with analytics_right:
             )
             status_chart = (
                 alt.Chart(status_counts)
-                .mark_arc(innerRadius=56, outerRadius=96, cornerRadius=3)
+                .mark_arc(innerRadius=46, outerRadius=80, cornerRadius=3)
                 .encode(
                     theta=alt.Theta("incidents:Q"),
                     color=alt.Color(
