@@ -1324,9 +1324,24 @@ with video_tab:
     with video_col2:
         model_path = st.text_input("YOLOv8 Model Path", value="best.pt")
     
-    start_btn, stop_btn = st.columns(2)
+    start_btn, stop_btn, view_btn = st.columns(3)
     start_stream = start_btn.button("Start Stream", type="primary", use_container_width=True)
     stop_stream = stop_btn.button("Stop Stream", use_container_width=True)
+    view_dashboard = view_btn.button("View Dashboard 📊", use_container_width=True)
+    
+    if view_dashboard:
+        st.session_state["playing_video"] = False
+        st.components.v1.html(
+            """
+            <script>
+            const tabs = window.parent.document.querySelectorAll('button[data-baseweb="tab"]');
+            if(tabs.length > 0) {
+                tabs[0].click();
+            }
+            </script>
+            """,
+            height=0
+        )
     
     if start_stream:
         st.session_state["playing_video"] = True
