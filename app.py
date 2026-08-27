@@ -836,6 +836,28 @@ with st.sidebar:
         key="sort_mode",
     )
     st.divider()
+    
+    if st.button("🚨 Factory Reset Dashboard", use_container_width=True):
+        import shutil
+        import os
+        
+        if "playing_video" in st.session_state:
+            st.session_state["playing_video"] = False
+            
+        conn = connect()
+        conn.execute("DROP TABLE IF EXISTS incidents;")
+        conn.commit()
+        database_setup.create_table(conn)
+        conn.close()
+        
+        for d in ["tmp", "thumbnails"]:
+            if os.path.exists(d):
+                shutil.rmtree(d)
+            os.makedirs(d, exist_ok=True)
+            
+        st.session_state["status_flash"] = "Dashboard factory reset successfully."
+        st.rerun()
+        
     st.caption(f"SQLite source: `{DB_PATH.name}`")
 
 
